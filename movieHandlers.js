@@ -43,7 +43,6 @@ const getMovies = (req, res) => {
 
 const getMovieById = (req, res) => {
   const id = parseInt(req.params.id);
-
   database
     .query("select * from movies where id = ?", [id])
     .then(([movies]) => {
@@ -58,7 +57,6 @@ const getMovieById = (req, res) => {
       res.status(500).send("Error retrieving data from database");
     });
 };
-
 
 
 const getUsers = (req, res) => {
@@ -90,9 +88,9 @@ const getUsersByID = (req, res) => {
   });
 };
 
+
 const postMovie = (req, res) => {
   const { title, director, year, color, duration } = req.body;
-
   database
     .query(
       "INSERT INTO movies(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
@@ -107,9 +105,9 @@ const postMovie = (req, res) => {
     });
 };
 
+
 const postUser = (req, res) => {
   const {firstname, lastname, email, city, language} = req.body;
-
   database
   .query(
     "INSERT INTO users (firstname, lastname, email, city, language) VALUES (?, ?, ?, ?, ?)",
@@ -122,6 +120,7 @@ res.location(`/api/users${result.insertId}`).send(201);
   res.status(500).send("Error")
 })
 };
+
 
 const putMovieById = (req, res) =>{
   const id = parseInt(req.params.id);
@@ -139,8 +138,8 @@ const putMovieById = (req, res) =>{
     console.error(err);
     res.status(500).send("Error editing the movie")
   })
-  
 }
+
 
 const putUserById = (req, res) => {
   const id = parseInt(req.params.id);
@@ -158,7 +157,42 @@ const putUserById = (req, res) => {
     console.error(err);
     res.status(500).send('Error editing the user')
   })
+}
 
+
+const deleteMovieById = (req, res) => {
+  const id = parseInt(req.params.id);
+  database.query(
+    "DELETE FROM movies WHERE id = ?",
+    [id]
+  ).then(([result]) => {
+    if (result.affectedRows === 0) {
+      res.status(404).send("Not Found")
+    } else {
+      res.sendStatus(204)
+    }
+  }).catch((err)=> {
+    console.error(err);
+    res.status(500).send("Error delete the movie")
+  })
+}
+
+
+const deleteUserById = (req, res) => {
+  const id = parseInt(req.params.id);
+  database.query(
+    "DELETE FROM users WHERE id = ?",
+    [id]
+  ).then(([result]) => {
+    if (result.affectedRows === 0) {
+      res.status(404).send("Not Found")
+    } else {
+      res.sendStatus(204)
+    }
+  }).catch((err)=> {
+    console.error(err);
+    res.status(500).send("Error delete the user")
+  })
 }
 
 module.exports = {
@@ -170,4 +204,6 @@ module.exports = {
   postUser,
   putMovieById,
   putUserById,
+  deleteMovieById,
+  deleteUserById,
 };
