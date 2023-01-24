@@ -17,12 +17,21 @@ app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 app.get("/api/users", movieHandlers.getUsers);
 app.get("/api/users/:id", movieHandlers.getUsersByID);
-app.post("/api/movies", movieHandlers.postMovie);
-app.post("/api/users", movieHandlers.postUser);
-app.put("/api/movies/:id", movieHandlers.putMovieById);
-app.put("/api/users/:id", movieHandlers.putUserById);
+// app.post("/api/movies", movieHandlers.postMovies);
+// app.post("/api/users", movieHandlers.postUsers);
+// app.put("/api/movies/:id", movieHandlers.putMovieById);
+// app.put("/api/users/:id", movieHandlers.putUserById);
 app.delete("/api/movies/:id", movieHandlers.deleteMovieById);
 app.delete("/api/users/:id", movieHandlers.deleteUserById);
+
+///// Quete Valider la saisi utilisateur /////
+const { validateMovie, validateUser } = require("./validator.js");
+app.post("/api/movies",validateMovie, movieHandlers.postMovies);
+app.post("/api/users",validateUser, movieHandlers.postUsers);
+app.put("/api/movies/:id",validateMovie, movieHandlers.putMovieById);
+app.put("/api/users/:id",validateUser, movieHandlers.putUserById);
+//////////
+
 
 app.listen(port, (err) => {
   if (err) {

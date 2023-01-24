@@ -89,7 +89,7 @@ const getUsersByID = (req, res) => {
 };
 
 
-const postMovie = (req, res) => {
+const postMovies = (req, res) => {
   const { title, director, year, color, duration } = req.body;
   database
     .query(
@@ -106,7 +106,7 @@ const postMovie = (req, res) => {
 };
 
 
-const postUser = (req, res) => {
+const postUsers = (req, res) => {
   const {firstname, lastname, email, city, language} = req.body;
   database
   .query(
@@ -200,8 +200,8 @@ module.exports = {
   getMovieById,
   getUsers,
   getUsersByID,
-  postMovie,
-  postUser,
+  postMovies,
+  postUsers,
   putMovieById,
   putUserById,
   deleteMovieById,
