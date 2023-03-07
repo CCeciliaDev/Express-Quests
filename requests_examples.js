@@ -25,3 +25,13 @@
 //   "color": "0",
 //   "duration": 120,
 // }
+
+// POST http://localhost:5000/api/users
+// {
+// "firstname":"Cecilia",
+// "lastname":"Admin",
+// "email":"CCadmin@example.com",
+// "city":"Bx",
+// "language":"French",
+// "hashedPassword":"MDPQExp"
+// }
